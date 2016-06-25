@@ -1,0 +1,36 @@
+{
+  "name": "draw-temple-together",
+  "version": "1.0.0",
+  "description": "Wacom Ink Layer Language Project base on node.js server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brucx/drawTempleTogether.git"
+  },
+  "keywords": [
+    "wacom",
+    "node",
+    "express"
+  ],
+  "author": "brucx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brucx/drawTempleTogether/issues"
+  },
+  "homepage": "https://github.com/brucx/drawTempleTogether#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  }
+}
