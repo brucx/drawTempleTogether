@@ -1,3 +1,4 @@
+var socket = parent.io();
 var WILL = {
 	backgroundColor: Module.Color.WHITE,
 	strokes: new Array(),
@@ -34,14 +35,7 @@ var WILL = {
 		$(Module.canvas).on("mousedown", function(e) {self.beginStroke(e);});
 		$(Module.canvas).on("mousemove", function(e) {self.moveStroke(e);});
 		$(document).on("mouseup", function(e) {self.endStroke(e);});
-
-		Module.canvas.addEventListener("touchstart", function(e) {self.beginStroke(e);});
-		Module.canvas.addEventListener("touchmove", function(e) {self.moveStroke(e);});
-		document.addEventListener("touchend", function(e) {self.endStroke(e);});
-
-		document.ontouchmove = function(е) {
-			е.preventDefault();
-		}
+		$(Module.canvas).on("mouseout", function(e) {if (self.writer.inputPhase) self.writer.abort();});
 	},
 
 	beginStroke: function(e) {
@@ -125,7 +119,7 @@ var WILL = {
 	},
 
 	clear: function() {
-		server.clear();
+		parent.server.clear();
 	},
 
 	clearCanvas: function() {
@@ -133,6 +127,7 @@ var WILL = {
 
 		this.strokesLayer.clear(this.backgroundColor);
 		this.canvas.clear(this.backgroundColor);
+		socket.emit('clear');
 	}
 };
 
@@ -190,14 +185,14 @@ var client = {
 	writers: [],
 
 	init: function() {
-		this.id = server.getSessionID(this.name);
+		this.id = parent.server.getSessionID(this.name);
 
 		this.encoder = new Module.PathOperationEncoder();
 		this.decoder = new Module.PathOperationDecoder(Module.PathOperationDecoder.getPathOperationDecoderCallbacksHandler(this.callbacksHandlerImplementation));
 	},
 
 	send: function(compose) {
-		server.receive(this.id, Module.readBytes(this.encoder.getBytes()), compose);
+		parent.server.receive(this.id, Module.readBytes(this.encoder.getBytes()), compose);
 		var data = Module.readBytes(this.encoder.getBytes());
 		socket.emit('drawData', data);
 		this.encoder.reset();
@@ -255,11 +250,15 @@ var client = {
 	}
 };
 
+var env = {
+	width: top.document.getElementById(window.name).scrollWidth,
+	height: top.document.getElementById(window.name).scrollHeight
+};
 
 Module.addPostScript(function() {
 	Module.InkDecoder.getStrokeBrush = function(paint, writer) {
 		return WILL.brush;
 	}
 
-	WILL.init(1600,900);
+	WILL.init(env.width, env.height);
 });

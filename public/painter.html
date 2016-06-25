@@ -4,41 +4,34 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Guess What I Drawn!</title>
+    <title>指画北京</title>
 
     <script src="scripts/jquery.min.js"></script>
 
     <script type="text/javascript" src="scripts/js.ext.js"></script>
     <script type="text/javascript" src="scripts/js.ext.dom.js"></script>
 
-    <script type="text/javascript" src="engine/Module.js"></script>
-    <script async type="text/javascript" src="engine/WacomInkEngine.js"></script>
-
-
+    <script type="text/javascript" src="server.js"></script>
 
     <style type="text/css">
         body {position: relative; overflow: hidden; margin: 0; padding: 0; background-color: #252525; color: white;}
         canvas {border: 0px none;}
         h2, p {margin-left: 20px;}
+
+        body div:first-child {overflow: hidden;}
+        iframe {width: 100%; height: 500px; border: 0px none;}
+        iframe#UserA {float: left;}
+        iframe#UserB {float: right;}
     </style>
 </head>
 <body>
+<div>
+    <iframe id="UserA" name="UserA" src="UserA.html"></iframe>
+</div>
 
-<canvas id="canvas" oncontextmenu="WILL.clear();event.preventDefault();"></canvas>
-
-<h2>Guess What I Drawn!</h2>
-<p>画图者</p>
-
+<h2>指画北京</h2>
+<p>绘图者</p>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io();
 
-    socket.on("hello", function () {
-        console.log("It's work!")
-    });
-    socket.emit('type', 'painter')
-</script>
-<script type="text/javascript" src="server.js"></script>
-<script type="text/javascript" src="painter.js"></script>
 </body>
 </html>
