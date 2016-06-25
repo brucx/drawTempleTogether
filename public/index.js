@@ -127,6 +127,7 @@ var WILL = {
 
 		this.strokesLayer.clear(this.backgroundColor);
 		this.canvas.clear(this.backgroundColor);
+		socket.emit('clear');
 	}
 };
 

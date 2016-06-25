@@ -34,8 +34,11 @@ var WILL = {
     socket.on('showData',function (obj) {
       var data = Object.keys(obj).map(function (key) {return obj[key]});
       data = new Uint8Array(data);
-      console.log(data);
+      // console.log(data);
       client.receive(1, data)
+    });
+    socket.on('clear',function () {
+      WILL.clearCanvas();
     })
   },
 

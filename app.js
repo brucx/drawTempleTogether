@@ -27,6 +27,9 @@ io.on('connection', function(socket){
 
   socket.on('drawData', function (data) {
     io.emit('showData', data);
+  });
+  socket.on('clear', function () {
+    io.emit('clear');
   })
 });
 
