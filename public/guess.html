@@ -14,8 +14,6 @@
     <script type="text/javascript" src="engine/Module.js"></script>
     <script async type="text/javascript" src="engine/WacomInkEngine.js"></script>
 
-
-
     <style type="text/css">
         body {position: relative; overflow: hidden; margin: 0; padding: 0; background-color: #252525; color: white;}
         canvas {border: 0px none;}
@@ -25,20 +23,19 @@
 <body>
 
 <canvas id="canvas" oncontextmenu="WILL.clear();event.preventDefault();"></canvas>
-
 <h2>Guess What I Drawn!</h2>
-<p>画图者</p>
-
+<p>猜图者</p>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     var socket = io();
-
     socket.on("hello", function () {
         console.log("It's work!")
     });
-    socket.emit('type', 'painter')
+
+    socket.emit('type', 'guesser');
+
 </script>
-<script type="text/javascript" src="server.js"></script>
-<script type="text/javascript" src="painter.js"></script>
+
+<script type="text/javascript" src="guesser.js"></script>
 </body>
 </html>

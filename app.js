@@ -6,6 +6,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var uuid = require('uuid')
 
 var app = express();
 
@@ -14,7 +15,19 @@ var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
   socket.emit("hello");
-  console.log('a user connected');
+  console.log('A user connected');
+
+  socket.on('type', function (data) {
+    if(data==='painter') {
+      console.log('画图者加入!');
+    } else {
+      console.log('猜图者加入!');
+    }
+  });
+
+  socket.on('drawData', function (data) {
+    io.emit('showData', data);
+  })
 });
 
 app.use(function (req, res, next) {
