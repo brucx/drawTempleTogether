@@ -83,7 +83,7 @@ var WILL = {
   },
 
   clear: function() {
-    server.clear();
+    this.clearCanvas();
   },
 
   clearCanvas: function() {
@@ -212,5 +212,63 @@ Module.addPostScript(function() {
     return WILL.brush;
   };
 
-  WILL.init(1600,600);
+  WILL.init(1200,300);
 });
+
+
+// Bing Speech API
+
+var speech_client;
+var request;
+
+function useMic() {
+  return true
+}
+
+function getMode() {
+      return Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionMode.shortPhrase;
+}
+
+function getOxfordKey() {
+  return "8e985c27639d4370a6705161c7182f53";
+}
+
+function getLanguage() {
+  return "zh-CN";
+}
+
+function clearText() {
+  document.getElementById("output").value = "";
+}
+
+function setText(text) {
+  document.getElementById("output").value += text;
+}
+
+function start() {
+  var mode = getMode();
+
+  clearText();
+
+  speech_client = Microsoft.ProjectOxford.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
+    mode,
+    getLanguage(),
+    getOxfordKey(),
+    getOxfordKey());
+  speech_client.startMicAndRecognition();
+  setTimeout(function () {
+    speech_client.endMicAndRecognition();
+  }, 3000);
+
+  speech_client.onPartialResponseReceived = function (response) {
+    setText(response);
+  }
+
+  speech_client.onFinalResponseReceived = function (response) {
+    setText(JSON.stringify(response));
+  }
+
+  speech_client.onIntentReceived = function (response) {
+    setText(response);
+  };
+}

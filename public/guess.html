@@ -26,6 +26,8 @@
 <h2>Guess What I Drawn!</h2>
 <p>猜图者</p>
 <script src="/socket.io/socket.io.js"></script>
+<textarea id="output" style='width:400px;height:200px'></textarea>
+<button onclick="start()">录音</button>
 <script>
     var socket = io();
     socket.on("hello", function () {
@@ -37,5 +39,7 @@
 </script>
 
 <script type="text/javascript" src="guesser.js"></script>
+<script type="text/javascript" src="./speech/speech.1.0.0.js"></script>
+
 </body>
 </html>

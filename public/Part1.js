@@ -34,7 +34,10 @@ var WILL = {
 		$(Module.canvas).on("mousedown", function(e) {self.beginStroke(e);});
 		$(Module.canvas).on("mousemove", function(e) {self.moveStroke(e);});
 		$(document).on("mouseup", function(e) {self.endStroke(e);});
-		$(Module.canvas).on("mouseout", function(e) {if (self.writer.inputPhase) self.writer.abort();});
+		$(Module.canvas).on("touchstart", function(e) {self.beginStroke(e);});
+		$(Module.canvas).on("touchmove", function(e) {self.moveStroke(e);});
+		$(document).on("touchend", function(e) {self.endStroke(e);});
+		$(Module.canvas).on("touchcancel", function(e) {if (self.writer.inputPhase) self.writer.abort();});
 	},
 
 	beginStroke: function(e) {
