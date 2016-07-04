@@ -1,4 +1,14 @@
 var socket = parent.io();
+var word = '';
+
+var start_game = function () {
+	socket.emit('getWord');
+	socket.on('word', function (data) {
+		word = data;
+	});
+	$('#word').innerText = word;
+}
+
 var WILL = {
 	backgroundColor: Module.Color.WHITE,
 	strokes: new Array(),
@@ -32,6 +42,9 @@ var WILL = {
 
 	initEvents: function() {
 		var self = this;
+		socket.on('clear',function () {
+			WILL.clearCanvas();
+		});
 		$(Module.canvas).on("mousedown", function(e) {self.beginStroke(e);});
 		$(Module.canvas).on("mousemove", function(e) {self.moveStroke(e);});
 		$(document).on("mouseup", function(e) {self.endStroke(e);});
@@ -119,7 +132,7 @@ var WILL = {
 	},
 
 	clear: function() {
-		parent.server.clear();
+		socket.emit('clear');
 	},
 
 	clearCanvas: function() {
@@ -127,7 +140,7 @@ var WILL = {
 
 		this.strokesLayer.clear(this.backgroundColor);
 		this.canvas.clear(this.backgroundColor);
-		socket.emit('clear');
+
 	}
 };
 

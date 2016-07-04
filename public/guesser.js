@@ -83,7 +83,7 @@ var WILL = {
   },
 
   clear: function() {
-    this.clearCanvas();
+    socket.emit('clear');
   },
 
   clearCanvas: function() {
@@ -212,7 +212,7 @@ Module.addPostScript(function() {
     return WILL.brush;
   };
 
-  WILL.init(1200,300);
+  WILL.init(document.body.clientWidth,500);
 });
 
 
@@ -261,14 +261,14 @@ function start() {
   }, 3000);
 
   speech_client.onPartialResponseReceived = function (response) {
-    setText(response);
+    setText(response[0].lexical);
   }
 
   speech_client.onFinalResponseReceived = function (response) {
-    setText(JSON.stringify(response));
+    setText(response[0].lexical);
   }
 
   speech_client.onIntentReceived = function (response) {
-    setText(response);
+    setText(response[0].lexical);
   };
 }

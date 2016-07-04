@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>指画北京</title>
+    <title>印迹北京</title>
+    <link rel="stylesheet" href="./css/bootstrap.css" />
 
     <script src="scripts/jquery.min.js"></script>
 
@@ -13,21 +14,55 @@
 
     <script type="text/javascript" src="engine/Module.js"></script>
     <script async type="text/javascript" src="engine/WacomInkEngine.js"></script>
-
+    <script src="/socket.io/socket.io.js"></script>
     <style type="text/css">
-        body {position: relative; overflow: hidden; margin: 0; padding: 0; background-color: #252525; color: white;}
+        body {
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #252525;
+            color: white;
+            background-image: url('天坛black.jpg');
+            background-size:100%;
+        }
         canvas {border: 0px none;}
         h2, p {margin-left: 20px;}
+        .header {
+            width: 100%;
+            height: 50px;
+            background-color: orangered;
+        }
+        .title {
+            padding: 5px;
+            font-family: "LiHei Pro";
+            font-size: 2em;
+        }
+        #record {
+            background-color: #aaaaaa;
+        }
+        #output {
+            color:#CCCCCC;
+        }
+        .record-box {
+            font-size: 2em;
+        }
     </style>
 </head>
 <body>
-
+<div class="header">
+    <div class="title pull-left">印迹北京</div>
+</div>
 <canvas id="canvas" oncontextmenu="WILL.clear();event.preventDefault();"></canvas>
-<h2>Guess What I Drawn!</h2>
-<p>猜图者</p>
-<script src="/socket.io/socket.io.js"></script>
-<textarea id="output" style='width:400px;height:200px'></textarea>
-<button onclick="start()">录音</button>
+<!--<h2 id="next" onclick="start_game()"><span class="pull-left">跳过 </span>-->
+
+</h2>
+<div class="pull-right record-box">
+    <input id="output" onblur="verify()"/>
+    <button id='record' onclick="start()">语音</button>
+</div>
+
+
 <script>
     var socket = io();
     socket.on("hello", function () {
@@ -35,7 +70,25 @@
     });
 
     socket.emit('type', 'guesser');
+    var word = '';
 
+    var start_game = function () {
+        socket.emit('getWord');
+        socket.on('word', function (data) {
+            word = data;
+        });
+    };
+    start_game();
+
+    var verify = function () {
+        console.log('verify!!!');
+        if ($('#output').value === word) {
+            $('next').text = '猜对了!'
+        } else {
+            $('#output').value = ''
+        }
+
+    }
 </script>
 
 <script type="text/javascript" src="guesser.js"></script>

@@ -6,14 +6,28 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var uuid = require('uuid')
+var uuid = require('uuid');
 
 var app = express();
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var word = '';
+
 io.on('connection', function(socket){
+  var dicts = [
+    '天坛',
+    '水立方',
+    '鸟巢',
+    '天安门',
+    '鼓楼',
+    '故宫',
+    '长城',
+    '糖葫芦',
+    '烤鸭',
+    '大裤衩'
+  ];
   socket.emit("hello");
   console.log('A user connected');
 
@@ -30,12 +44,21 @@ io.on('connection', function(socket){
   });
   socket.on('clear', function () {
     io.emit('clear');
+  });
+  socket.on('nextWord', function () {
+    word = dicts.pop();
+    io.emit('word', word)
+  });
+  socket.on('getWord', function () {
+    io.emit('word', word)
   })
-});
-
-app.use(function (req, res, next) {
-  req.socket = io;
-  next()
+  
+  socket.on('verify', function (data) {
+    if(data === word) {
+      io.emit('done')
+    }
+  })
+  
 });
 
 app.use(logger('dev'));
@@ -45,7 +68,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res) {
   var err = new Error('Not Found');
-  err.status = 404;
   res.status(err.status || 500);
   res.end(err.message);
 });
