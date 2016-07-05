@@ -68,7 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res) {
   var err = new Error('Not Found');
-  res.status(err.status || 500);
+  res.status(err.status || 404);
   res.end(err.message);
 });
 

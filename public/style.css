@@ -7,7 +7,7 @@ html, body {
 .container {
     height: 100%;
     background: url("img/bg@2x.png");
-    background-size: 100%;
+    background-size: cover;
 }
 
 .title {
@@ -17,7 +17,7 @@ html, body {
 }
 
 .banner {
-    position: fixed;
+    position: absolute;
     top: 100px;
     font-size: 20px;
 }
@@ -51,5 +51,56 @@ html, body {
 }
 
 .board {
-    position: relative;
+    position: absolute;
+    top: 150px;
+    left:  120px;
+}
+
+.targetWord {
+    float: left;
+    width: 250px;
+    height: 600px;
+    background-color: rgba(255,160,51,0.9);
+}
+
+.targetWord img {
+    width: 250px;
+}
+
+.targetWord .article {
+    width: 230px;
+    padding: 10px;
+    color: white;
+    word-wrap: break-word;
+    word-break: normal;
+    text-align: center;
+}
+
+.targetWord .timereamin {
+    color: #fa8919;
+    border: solid 3px #fa8919;
+}
+
+.board>iframe {
+    width: 615px;
+    height: 615px;
+    background-image: url('img/图层-305@2x.png');
+    background-size: 110%;
+    box-shadow: inset 0 0 5px 5px #fa8919;
+    border: 0 none;
+    transform: translateY(-15px);
+}
+
+.board button {
+    background-image: url('img/圆角矩形-52-拷贝-4@2x.png');
+    background-size: 110%;
+    width: 244px;
+    height: 47px;
+    color: #FFFFFF;
+    border: 0 none;
+    padding: 0;
+}
+
+.board .btnSkip {
+    margin-left: 300px;
 }

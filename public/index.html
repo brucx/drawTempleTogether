@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
+    <script src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/js.ext.js"></script>
+    <script type="text/javascript" src="scripts/js.ext.dom.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="server.js"></script>
     <title>Ink Peking</title>
 </head>
 <body>
@@ -13,16 +18,25 @@
         <div class="title">Ink Peking</div>
         <div class="banner">
             <div class="menu"></div>
-            <div class="btnMatch"><span>随机匹配</span></div>
-            <div class="btnRank"><span>查看排行</span></div>
+            <div class="btnMatch"><span>Roll</span></div>
+            <div class="btnRank"><span>Ranking</span></div>
         </div>
     </header>
     <div class="board">
-        <div class="targetWord"></div>
-        <iframe></iframe>
-        <button>跳过</button>
+        <div class="targetWord">
+            <img src="img/天坛.png">
+            <div class="article">
+                <h3>The Temple of Heaven</h3>
+                <p>About 2km southeast of the Forbidden City towers Tian Tan, or the Temple of Heaven, where dynastic rulers in China used to worship the heaven. The temple plus subsidiary buildings and a surrounding garden covers an area five times the size of the Forbidden City. As Chinese emperors called themselves Tianzi, or the son of heaven, they had to cede supremacy to the heaven in terms of abiding.</p>
+                <div class="timereamin">Time Remains: <span>120s</span></div>
+            </div>
+        </div>
+        <iframe id="UserA" name="UserA"></iframe>
+        <div><button class="btnSkip">Skip</button></div>
+        <div><button onclick="setStatus('drawer')">Drawer</button> <button onclick="setStatus('guesser')">Guesser</button></div>
     </div>
 
 </div>
+<script src="main.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+var socket = parent.io();
+
 var WILL = {
   backgroundColor: Module.Color.WHITE,
   strokes: new Array(),
@@ -206,13 +208,17 @@ var client = {
   }
 };
 
+var env = {
+  width: top.document.getElementById(window.name).scrollWidth,
+  height: top.document.getElementById(window.name).scrollHeight
+};
 
 Module.addPostScript(function() {
   Module.InkDecoder.getStrokeBrush = function(paint, writer) {
     return WILL.brush;
   };
 
-  WILL.init(document.body.clientWidth,500);
+  WILL.init(env.width, env.height);
 });
 
 
@@ -234,7 +240,7 @@ function getOxfordKey() {
 }
 
 function getLanguage() {
-  return "zh-CN";
+  return "en-us";
 }
 
 function clearText() {
