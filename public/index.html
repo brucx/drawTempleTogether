@@ -33,10 +33,15 @@
         </div>
         <iframe id="UserA" name="UserA"></iframe>
         <div><button class="btnSkip">Skip</button></div>
+        <div class="pull-right record-box">
+            <input id="output" onblur="verify()"/>
+            <button id='record' onmousedown="start()">Speech</button>
+        </div>
         <div><button onclick="setStatus('drawer')">Drawer</button> <button onclick="setStatus('guesser')">Guesser</button></div>
     </div>
 
 </div>
+<script type="text/javascript" src="./speech/speech.1.0.0.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

@@ -198,7 +198,7 @@ var client = {
 	writers: [],
 
 	init: function() {
-		this.id = "gyuf75";
+		this.id = "UserA";
 
 		this.encoder = new Module.PathOperationEncoder();
 		this.decoder = new Module.PathOperationDecoder(Module.PathOperationDecoder.getPathOperationDecoderCallbacksHandler(this.callbacksHandlerImplementation));

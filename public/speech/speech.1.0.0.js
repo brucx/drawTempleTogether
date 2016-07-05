@@ -390,6 +390,7 @@ var Bing;
         };
         Speech.prototype.stop = function () {
             this.context.close();
+            this.context = null;
             if (this._currentSource) {
                 Platform.getCU().done(function (cu) {
                     cu.disconnect();
