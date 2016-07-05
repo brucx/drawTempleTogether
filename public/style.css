@@ -9,3 +9,47 @@ html, body {
     background: url("img/bg@2x.png");
     background-size: 100%;
 }
+
+.title {
+    font-size: 50px;
+    padding: 15px;
+    color: #FFFFFF;
+}
+
+.banner {
+    position: fixed;
+    top: 100px;
+    font-size: 20px;
+}
+
+.btnMatch {
+    position: absolute;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0 #000000;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    line-height:100px;
+    left: 15px;
+    top: -20px;
+    color: #fa9757;
+}
+
+.btnRank {
+    position: absolute;
+    color: #FFFFFF;
+    left: 170px;
+    top: 20px;
+}
+
+.menu {
+    background-image: url('./img/矩形-1@2x.png');
+    background-size: auto;
+    width: 1024px;
+    height: 63px;
+}
+
+.board {
+    position: relative;
+}
